@@ -8,11 +8,39 @@ using namespace std;
 int main(){
     int n, sum;
     int dp[1000] = {0};
+    dp[0] = 1;
     while(cin>>n>>sum){
         vector<int> values(n,0);
         for(int i=0; i<n; ++i)
             cin>>values[i];
-        for(int )
+        for(int i=1; i<=n; ++i){
+            for(int j=sum; j>=0;--j){
+                if(j>=values[i-1])
+                    dp[j] += dp[j-values[i-1]];
+            }
+        }
+        cout<<"result:"<<dp[sum]<<endl;
     }
     return 0;
 }
+/*
+int const maxn = 1100;
+int data[maxn];
+long long f[maxn];
+int main() {
+    int n,sum;
+    cin>>n>>sum;
+    for (int i=1;i<=n;i++) {
+        cin>>data[i];   
+    }
+    f[0] = 1;
+    for (int i=1;i<=n;i++) {
+        for (int j=maxn;j>=0;j--) {
+            if(j>=data[i]) {
+                f[j] += f[j-data[i]];
+            } 
+        }
+    }
+    cout<<f[sum]<<endl;
+}
+*/
